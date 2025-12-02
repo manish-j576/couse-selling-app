@@ -5,9 +5,9 @@ const CourseSchema = new mongoose.Schema(
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    userId: {
+    adminId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // model name from Schema.js
+      ref: "Admin", // model name from Schema.js
       required: true,
     },
     imageURL : { type : String , require : false}
@@ -16,4 +16,4 @@ const CourseSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-export const Course = mongoose.model("Course", CourseSchema);
+export const CourseModel = mongoose.model("Course", CourseSchema);

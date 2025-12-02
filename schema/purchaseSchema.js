@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 const purchaseSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -13,4 +13,4 @@ const purchaseSchema = new mongoose.Schema({
 });
 
 
-export {purchaseSchema};
+export const PurchaseModel = mongoose.model("purchase",purchaseSchema)

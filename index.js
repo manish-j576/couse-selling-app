@@ -10,18 +10,17 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
-const startServer = async () => {
-  try {
-    await connectDB();
-  } catch (e) {
-    console.log("connection to database failed inside index.js");
-  }
-};
 
-startServer();
+
 
 app.use("/api/user", userRouter);
 app.use("api/course",courseRouter);
 app.use("/api/admin", adminRouter)
 
-app.listen(3000);
+async function main(){
+  await connectDB()
+  app.listen(3000);
+  console.log("listening on PORT : 3000")
+}
+
+main()
