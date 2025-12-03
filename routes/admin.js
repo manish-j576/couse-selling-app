@@ -37,6 +37,7 @@ adminRouter.post("/signup", async (req, res) => {
 
 
 });
+
 adminRouter.post("/login", async (req, res) => {
     try{
       const email = req.body.email;
@@ -70,6 +71,7 @@ adminRouter.post("/login", async (req, res) => {
         console.error("error occured again")
     }
 });
+
 adminRouter.post("/createCourse", adminAuthMiddleware,async (req, res) => {
     //TODO is to take the image from the user and create a pipeline that will upload the imageURL in here
   const {name , description , price , imageURL , adminId} = req.body
@@ -92,8 +94,6 @@ adminRouter.post("/createCourse", adminAuthMiddleware,async (req, res) => {
     })
   }
 });
-
-
 // adminRouter.delete("/deleteCourse", adminAuthMiddleware, async (req, res) => {
 //   const courseId = req.body
 //   try{
@@ -135,12 +135,37 @@ adminRouter.put("/changeCourse",adminAuthMiddleware,async (req,res) => {
       })
     }
 })
-adminRouter.post("/addContent",adminAuthMiddleware, (req, res) => {
-
+//to delete a course from the courses
+adminRouter.delete("/deleteCourse",adminAuthMiddleware,async (req,res) => {
+  const {courseId} = req.body
+  try{
+    const response = await CourseModel.deleteOne({
+      _id : courseId
+    })
     res.status(200).json({
-      messege: "/addContent",
-    });
-});
+      message : "Course deteleted successfully",
+      response
+    })
+  }catch(e){
+    res.status(200).json({
+      message : "error occured at delete endpoint"
+    })
+  }
+} )
+adminRouter.get("/showCourses",adminAuthMiddleware,async (req, res) => {
+  const adminId = req.adminId;
+    try{
+      const courses = await CourseModel.find({
+        adminId : adminId
+      })
 
+      res.status(200).json(courses);
+    }catch(e){
+      res.status(403).json({
+        message : "Error occured while finding the coursesDetail"
+      })
+    }
+    
+});
 
 export {adminRouter};
