@@ -40,19 +40,24 @@ Project Folder Structure
 ------------------------------------------------------------
 
 project/
+
   middleware/
     adminMiddleware.js
     userMiddleware.js
+
   routes/
     admin.js
     course.js
     user.js
+
   schema/
     adminSchema.js
     courseSchema.js
     purchaseSchema.js
     userSchema.js
+
   node_modules/
+  
   .env
   .env.example
   .gitignore
