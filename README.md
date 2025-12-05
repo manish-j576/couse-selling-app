@@ -40,21 +40,27 @@ Project Folder Structure
 ------------------------------------------------------------
 
 project/
+  middleware/
+    adminMiddleware.js
+    userMiddleware.js
   routes/
     admin.js
-    user.js
     course.js
-  models/
-    User.js
-    Admin.js
-    Course.js
-    Purchase.js
-  middleware/
-    auth.js
+    user.js
+  schema/
+    adminSchema.js
+    courseSchema.js
+    purchaseSchema.js
+    userSchema.js
+  node_modules/
   .env
+  .env.example
+  .gitignore
+  db.js
+  index.js
   package.json
-  server.js
-  readme.txt
+  package-lock.json
+  README.md
 
 ------------------------------------------------------------
 Tech Stack
@@ -72,7 +78,8 @@ Environment Variables (.env Required)
 ------------------------------------------------------------
 
 MONGO_URI = your mongo connection string
-JWT_SECRET = your jwt secret key
+JWT_USER_SECRET = your jwt secret key
+JWT_ADMIN_SECRET = your jwt secret key
 PORT = 3000 or any port number
 
 ------------------------------------------------------------
@@ -100,6 +107,7 @@ API Overview
 User Routes:
 POST /user/signup
 POST /user/login
+GET  /user/courses
 
 Admin Routes:
 POST /admin/signup
