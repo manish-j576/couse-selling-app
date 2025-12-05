@@ -5,7 +5,7 @@ const purchaseSchema = new mongoose.Schema({
     ref: "user", // model name from Schema.js
     required: true,
   },
-  createrId: {
+  courseId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "admin", // model name from Schema.js
     required: true,

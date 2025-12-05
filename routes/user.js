@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import { userAuthMiddleware } from "../middleware/userMiddleware.js";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../schema/userSchema.js";
+import { PurchaseModel } from "../schema/purchaseSchema.js";
+import { CourseModel } from "../schema/courseSchema.js";
 const userRouter = Router();
 
 
@@ -74,10 +76,24 @@ userRouter.post("/login", async (req, res) => {
 });
 
 // to get the purchased courses
-userRouter.get("/courses", userAuthMiddleware, (req, res) => {
-  res.status(200).json({
-    messege: "response from /course endpoint",
-  });
+userRouter.get("/courses", userAuthMiddleware,async (req, res) => {
+  try{
+    const courseIdArr = await PurchaseModel.find({userId : req.userId},"courseId")
+    const purchasedCourses = await Promise.all(
+          courseIdArr.map(async (e) =>{
+            const courseId = e.courseId.toString();
+            const courseDetails = await CourseModel.findOne({
+              _id : courseId
+            })
+            return courseDetails;
+          }))
+     res.status(200).json(purchasedCourses)
+  }catch(e){
+    res.status(200).json({
+      messege: "error response from /purchased endpoint",
+    });
+  }
+  
 });
 
 export { userRouter };

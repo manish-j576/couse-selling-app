@@ -14,7 +14,7 @@ dotenv.config();
 
 
 app.use("/api/user", userRouter);
-app.use("api/course",courseRouter);
+app.use("/api/course",courseRouter);
 app.use("/api/admin", adminRouter)
 
 async function main(){
