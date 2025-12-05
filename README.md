@@ -1,127 +1,143 @@
-📚 Course Selling App
+Course Selling Application – Backend (Version 1)
 
-A simple and modular course selling platform built using Node.js, Express, MongoDB, and JWT authentication.
-This project includes user and admin authentication, course management, and basic purchasing features.
+This backend powers a course-selling platform using Node.js, Express, and MongoDB.  
+It supports user authentication, admin operations, course management, and purchase tracking.
 
-🚀 Features Implemented So Far
-👤 User Features
+------------------------------------------------------------
+Features Included in Backend v1
+------------------------------------------------------------
 
-User Signup
+1. User Authentication
+- User signup
+- User login
+- Password hashing using bcrypt
+- JWT-based authentication
+- Protected routes using middleware
 
-User Login
+2. Admin Functionality
+- Admin signup
+- Admin login
+- Ability to create new courses
+- Update course details
+- Delete courses
 
-Purchase a Course
+3. Course Management
+- Fetch all courses
+- Fetch course by ID
+- Purchase a course
+- Track user-course purchases
+- Fetch purchased courses for a user
 
-View Available Courses
+4. Database Structure (MongoDB)
+Collections used:
+- Users
+- Admins
+- Courses
+- Purchases (userId and courseId mapping)
 
-🛠️ Admin Features
+------------------------------------------------------------
+Project Folder Structure
+------------------------------------------------------------
 
-Admin Signup
-
-Admin Login
-
-Create a Course
-
-Delete a Course
-
-Add Course Content
-
-🔐 Authentication
-
-JWT-based User Authentication
-
-JWT-based Admin Authentication
-
-Protected Routes handled through auth middleware
-
-🗄️ Database
-
-MongoDB (Mongoose)
-
-.env for managing database connection string and JWT secrets
-
-📦 Schemas Defined
-
-User
-
-Admin
-
-Course
-
-Purchase
-
-📁 Project Structure (Recommended)
 project/
-│── controllers/
-│── middleware/
-│── models/
-│── routes/
-│── index.js
-│── .env
-│── package.json
-│── README.md
+  routes/
+    admin.js
+    user.js
+    course.js
+  models/
+    User.js
+    Admin.js
+    Course.js
+    Purchase.js
+  middleware/
+    auth.js
+  .env
+  package.json
+  server.js
+  readme.txt
 
-🛠️ Technologies Used
-
+------------------------------------------------------------
+Tech Stack
+------------------------------------------------------------
 Node.js
-
 Express.js
-
-MongoDB + Mongoose
-
-jsonwebtoken (JWT)
-
+MongoDB
+Mongoose
+bcrypt
+JSON Web Tokens (JWT)
 dotenv
 
-📜 How to Run the Project
-1️⃣ Install dependencies
-npm install
+------------------------------------------------------------
+Environment Variables (.env Required)
+------------------------------------------------------------
 
-2️⃣ Add your .env file
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-PORT=3000
+MONGO_URI = your mongo connection string
+JWT_SECRET = your jwt secret key
+PORT = 3000 or any port number
 
-3️⃣ Start the server
-npm start
+------------------------------------------------------------
+How to Run the Project Locally
+------------------------------------------------------------
 
-🔐 Authentication Flow
-User Flow
+1. Clone the repository
+   git clone <your-repo-url>
 
-Signup → Save user → Return token
+2. Install dependencies
+   npm install
 
-Login → Verify credentials → Return token
+3. Add your .env file to the root of the project.
 
-Access protected routes → Provide Bearer <token>
+4. Start the server
+   npm start
 
-Admin Flow
+The server will run at:
+http://localhost:3000
 
-Same as user flow, with admin-only routes.
+------------------------------------------------------------
+API Overview
+------------------------------------------------------------
 
-📚 Available API Endpoints (Current)
-👤 User Routes
-Method	Route	Description
-POST	/user/signup	Create a new user
-POST	/user/login	Login and get token
-GET	/user/courses	View all courses
-POST	/user/purchase/:courseId	Purchase a course
-🛠️ Admin Routes
-Method	Route	Description
-POST	/admin/signup	Create new admin
-POST	/admin/login	Login as admin
-POST	/admin/course	Create a course
-DELETE	/admin/course/:id	Delete a course
-PUT	/admin/course/:id/content	Add course content
-🧪 Extra (Optional Enhancements)
+User Routes:
+POST /user/signup
+POST /user/login
 
-You can later add:
+Admin Routes:
+POST /admin/signup
+POST /admin/login
+POST /admin/course
+PUT /admin/course/:id
+DELETE /admin/course/:id
 
-Frontend using React
+Course Routes:
+GET /courses
+GET /courses/:id
 
-Roles & permissions
+Purchase Routes:
+POST /user/purchase/:courseId
+GET /user/purchased
 
-Course search + filtering
+------------------------------------------------------------
+Current Version Status
+------------------------------------------------------------
 
-Purchased courses dashboard
+Backend v1 is fully functional with:
+- Working authentication
+- Course creation and purchase system
+- Purchased courses retrieval
+- Basic error handling
+- Clean and scalable folder structure
 
-Admin analytics
+------------------------------------------------------------
+Upcoming Improvements (v2)
+------------------------------------------------------------
+
+- Pagination and search for courses
+- Role-based access control
+- File uploads for course thumbnails
+- Payment integration (Stripe or Razorpay)
+- Improved error handling and validation
+- Admin dashboard enhancements
+
+------------------------------------------------------------
+End of File
+------------------------------------------------------------
