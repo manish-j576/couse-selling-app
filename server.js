@@ -5,8 +5,9 @@ import { connectDB } from "./db.js";
 import {userRouter} from "./routes/user.js"
 import { courseRouter } from "./routes/course.js";
 import { adminRouter } from "./routes/admin.js";
+import cors from "cors"
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 dotenv.config();
 

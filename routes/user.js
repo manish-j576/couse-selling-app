@@ -42,27 +42,35 @@ userRouter.post("/login", async (req, res) => {
     try{
         const email = req.body.email;
         const password = req.body.password;
+
+        console.log(email)
+        console.log(password)
         const foundUser = await UserModel.findOne({email:email})
-
+        console.log("reached 1")
+        console.log(foundUser)
         if(!foundUser){
-            res.status(400).json({
-                message : "user not found"
-            })
+          
+          console.log("reached 3")
+          res.status(404).json({
+            message : "user not found"
+          })
         }
-
+        console.log("reached 2")
         const isMatch = await bcrypt.compare(password, foundUser.password);
-
+        console.log("reached 3")
+        
         if(!isMatch){
-             res.status(400).json({
-               message: "Incorrect Password",
-             });
+          res.status(400).json({
+            message: "Incorrect Password",
+          });
         }else{
-            const token = jwt.sign(
-              { id:foundUser._id}, 
-              process.env.JWT_USER_SECRET, 
-              { expiresIn: "24h" }
-            );
-
+          const token = jwt.sign(
+            { id:foundUser._id}, 
+            process.env.JWT_USER_SECRET, 
+            { expiresIn: "24h" }
+          );
+          
+          console.log("reached 4")
             //TODO try to implement cookie based authentication and session based authnetication
 
 
