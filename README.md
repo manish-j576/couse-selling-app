@@ -107,8 +107,8 @@ Admin Routes:
 POST /admin/signup
 POST /admin/login
 POST /admin/course
-PUT /admin/course/:id
-DELETE /admin/course/:id
+PUT /admin/course/
+DELETE /admin/course/
 
 Course Routes:
 GET /courses
