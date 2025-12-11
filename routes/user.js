@@ -17,7 +17,7 @@ userRouter.post("/signup", async (req, res) => {
     const response = await UserModel.findOne({ email: email });
 
     if (response) {
-      res.status(400).json({
+      res.status(401).json({
         message: "User already exist",
       });
     }
@@ -60,7 +60,7 @@ userRouter.post("/login", async (req, res) => {
         console.log("reached 3")
         
         if(!isMatch){
-          res.status(400).json({
+          res.status(401).json({
             message: "Incorrect Password",
           });
         }else{
