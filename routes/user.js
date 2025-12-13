@@ -49,16 +49,11 @@ userRouter.post("/login", async (req, res) => {
         console.log("reached 1")
         console.log(foundUser)
         if(!foundUser){
-          
-          console.log("reached 3")
           res.status(404).json({
             message : "user not found"
           })
         }
-        console.log("reached 2")
         const isMatch = await bcrypt.compare(password, foundUser.password);
-        console.log("reached 3")
-        
         if(!isMatch){
           res.status(401).json({
             message: "Incorrect Password",
@@ -69,8 +64,6 @@ userRouter.post("/login", async (req, res) => {
             process.env.JWT_USER_SECRET, 
             { expiresIn: "24h" }
           );
-          
-          console.log("reached 4")
             //TODO try to implement cookie based authentication and session based authnetication
 
 
@@ -79,7 +72,7 @@ userRouter.post("/login", async (req, res) => {
             })
         }
     }catch(e){
-        console.error("error occured")
+        console.error("error occured at login endpoint")
     }
 });
 
