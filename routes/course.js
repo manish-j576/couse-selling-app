@@ -9,13 +9,26 @@ courseRouter.post("/purchase" , userAuthMiddleware, async (req, res) => {
   //ideally we should accept the payment and then added the course in the users purchased Courses but for now we will just bypass that
     const{courseId} = req.body
   try{
-      const response = await PurchaseModel.create({
-          userId : req.userId,
-          courseId : courseId
-        })
-        res.status(200).json({
-            message : "Course purchases successfully",
-        })
+        console.log("control reached here")
+        const alreadyPurchased = await PurchaseModel.findOne({
+          userId: req.userId,
+          courseId: courseId,
+        });
+        console.log(alreadyPurchased)
+        if(alreadyPurchased){
+            res.status(401).json({
+                message : "Course is already purchased"
+            })
+        }
+        if(!alreadyPurchased){
+            const response = await PurchaseModel.create({
+                userId : req.userId,
+                courseId : courseId
+            })
+            res.status(200).json({
+                message : "Course purchases successfully",
+            })
+        }
     }catch(e){
         res.status(403).json({
               message : "response from /purchase endpoint"
