@@ -74,42 +74,30 @@ adminRouter.post("/login", async (req, res) => {
 
 adminRouter.post("/createCourse", adminAuthMiddleware,async (req, res) => {
     //TODO is to take the image from the user and create a pipeline that will upload the imageURL in here
-  const {name , description , price , imageURL , adminId} = req.body
-
+  const {title , description , price , imageURL } = req.body
+  const adminId = req.adminId
+  console.log(adminId)
+  console.log(title)
+  console.log(description)
+  console.log(price)
+  console.log(imageURL)
   try{
     await CourseModel.create({
-      name,
-      description,
-      price,
-      imageURL,
-      adminId
+      name:title,
+      description:description,
+      price:price,
+      imageURL:imageURL,
+      adminId:adminId
     })
-
     res.status(200).json({
       message : "Data inserted successfully"
-    })
+    });
   }catch(e){
-    res.status(403).json({
+    res.status(401).json({
       message : "Error occured while uploading to database"
     })
   }
 });
-// adminRouter.delete("/deleteCourse", adminAuthMiddleware, async (req, res) => {
-//   const courseId = req.body
-//   try{
-//     await CourseModel.deleteMany({
-//       _id : courseId
-//     })
-//     res.status(200).json({
-//       message : "Course Deleted successfully"
-//     })
-
-//   }catch(e){
-//     res.status(403).json({
-//       message : "Error occured while deleting the course"
-//     })
-//   }
-// });
 adminRouter.put("/changeCourse",adminAuthMiddleware,async (req,res) => {
     const adminId = req.adminId
     const {name , description , price , imageURL , courseId} = req.body 
