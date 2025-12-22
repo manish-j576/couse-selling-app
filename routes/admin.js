@@ -98,34 +98,35 @@ adminRouter.post("/createCourse", adminAuthMiddleware,async (req, res) => {
     })
   }
 });
-adminRouter.put("/changeCourse",adminAuthMiddleware,async (req,res) => {
+adminRouter.patch("/changeCourse/:courseId",adminAuthMiddleware,async (req,res) => {
+  console.log("request reached here")
     const adminId = req.adminId
-    const {name , description , price , imageURL , courseId} = req.body 
+    const {courseId} = req.params
+    const updates = req.body 
     try{
-       await CourseModel.updateOne({
-        _id : courseId,
-        adminId : adminId
-      },{
-        $set : {
-          name : name,
-          description : description,
-          price : price,
-          imageURL : imageURL
-        }
-      })
+       const result = await CourseModel.updateOne(
+        {
+          _id: courseId,
+          adminId: adminId,
+        },
+        {
+          $set: updates,
+        })
+        console.log(result)
       res.status(200).json({
         message: "Course updated successfully",
       });
 
     }catch(e){
-      res.status(403).json({
+      res.status(403).json({ 
         message : "Error occured while updating"
       })
     }
 })
 //to delete a course from the courses
 adminRouter.delete("/deleteCourse",adminAuthMiddleware,async (req,res) => {
-  const {courseId} = req.body
+
+  const { courseId} = req.body
   try{
     const response = await CourseModel.deleteOne({
       _id : courseId
